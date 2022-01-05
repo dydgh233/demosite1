@@ -12,8 +12,14 @@
 -->
 
 <?php
+// db연결 준비
 require "../util/dbconfig.php";
 
+// 로그인한 상태일 때만 이 페이지 내용을 확인할 수 있다.
+require_once '../util/loginchk.php';
+if($chk_login) {
+  $username = $_SESSION['username'];
+}
 // 기존 테이블이 있으면 삭제하고 새롭게 생성하도록 질의 구성
 // 질의 실행과 동시에 실행 결과에 따라 메시지 출력
 $sql = "DROP TABLE IF EXISTS users";

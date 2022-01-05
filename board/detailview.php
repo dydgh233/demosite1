@@ -1,6 +1,13 @@
 
 <?php
+// db연결 준비
 require "../util/dbconfig.php";
+
+// 로그인한 상태일 때만 이 페이지 내용을 확인할 수 있다.
+require_once '../util/loginchk.php';
+if($chk_login) {
+  $username = $_SESSION['username'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +22,7 @@ require "../util/dbconfig.php";
 </head>
 
 <body>
-  <h1>메모내용</h1>
+  <h1>게시판</h1>
   <br>
   <?php
 

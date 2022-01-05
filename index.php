@@ -5,9 +5,8 @@
   업데이트일자 : 2022-1-3
   
   기능: 
-  weblessons 프로젝트 폴더의 최상위 index 파일로써,
+  demosite1 프로젝트 폴더의 최상위 index 파일로써,
   하위 app 폴더를 연결하는 역할을 한다.
- 
 -->
 <!--
   session 관리 목적 추가
@@ -18,7 +17,7 @@ require_once './util/loginchk.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kr">
 
 <head>
     <meta charset="UTF-8">
@@ -31,55 +30,56 @@ require_once './util/loginchk.php';
 <body>
     <!-- Logo, Memga menu's, Introduction Video link, and Login Button -->
     <header>
-        <logo></logo>
-        <mgmnu></mgmnu>
-        <videos></videos>
-        <login></login>
-        <ul>
-            <li>navmenu1</li>
-            <li>navmenu1</li>
-            <li>navmenu1</li>
+        <div class="headeritem">logo</div>
+        <div class="headeritem">megamenu1</div>
+        <div class="headeritem">megamenu2</div>
+        <div class="loginlink">
             <?php
             if (!$chk_login) {  // 로그인 상태가 아니라면
             ?>
-                <li id='trglgnModal'>login</li>
-                <!-- login modal -->
+                <button id='trglgnModal'>login</button>
+                <!-- 여기부터 login modal -->
                 <div id='lgnModal' class='modal'>
+                    <!-- 여기부터 로그인 form in modal -->
                     <div class="modal-content">
                         <span class="close">&times;</span>
                         <form action="./membership/user_loginprocess.php" method="POST" class="loginbox">
-                            <label>사용자 아이디 : </label><input type="text" name="username" placeholder="사용자 아이디를 입력해주세요." required /><br>
-                            <label>비밀번호 : </label><input type="password" name="passwd" placeholder="비밀번호를 입력해주세요." required /><br>
-                            <br>
-                            <input type="checkbox" value="yes" name="chkbox">로그인 상태 유지
-                            <input type=submit value="로그인">
+                            <label for="username"><b>Username</b></label><input type="text" name="username" placeholder="Enter Username" required />
+                            <label for="passwd"><b>Password </label><input type="password" name="passwd" placeholder="Enter Password" required />
+                            <button type=submit>Login</button><br>
+                            <label>
+                                <input type="checkbox" value="yes" name="chkbox">Remember me
+                            </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <a href="./membership/user_regist.php">회원가입</a>
                         </form>
+
                     </div>
+                    <!-- 여기까지 로그인 form in modal -->
                 </div>
-            <?php } else {
+                <!-- 여기까지 login modal -->
+            <?php
+            } else {
                 echo $_SESSION['username']; ?>
                 <button?><a href="./membership/user_logout.php">logout</a></button>
                 <?php
-            }
+            } // end of if(!$chk_login)
                 ?>
-        </ul>
+        </div><!-- end of class="loginlink" -->
     </header>
     <!-- -->
     <nav>
-        
-        
-    <ul>
-      <li><a href="/memo/list.php">MemoApp</a></li>
-      <li><a href="/board/list.php">Board</a></li>
-      <li>Blog</li>
-      
-    </ul>
-  
+        <ul>
+            <li><a href="./memo/list.php">MemoApp</a></li>
+            <li><a href="./board/list.php">Board</a></li>
+            <li>Blog</li>
+
+        </ul>
     </nav>
     <!-- -->
     <main>
-   
+        <div class="box1">
+            
+        </div>
     </main>
     <footer>
     </footer>

@@ -8,8 +8,14 @@
   id를 GET 패러미터로 받아 삭제처리한다.
 -->
 <?php
-  // db연결 준비
-  require "../util/dbconfig.php";
+// db연결 준비
+require "../util/dbconfig.php";
+
+// 로그인한 상태일 때만 이 페이지 내용을 확인할 수 있다.
+require_once '../util/loginchk.php';
+if($chk_login) {
+  $username = $_SESSION['username'];
+}
 
   // create connection
   $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);

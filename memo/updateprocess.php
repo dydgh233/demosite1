@@ -13,6 +13,12 @@
 // db연결 준비
 require "../util/dbconfig.php";
 
+// 로그인한 상태일 때만 이 페이지 내용을 확인할 수 있다.
+require_once '../util/loginchk.php';
+if($chk_login) {
+  $username = $_SESSION['username'];
+}
+
 // 데이터베이스 작업 전, 회원정보 수정화면으로 부터 값을 전달 받고
 $id = $_POST['id'];
 $title = $_POST['title'];
