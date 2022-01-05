@@ -27,7 +27,7 @@ if ($conn->query($sql) == TRUE) {
 // $sql = "CREATE TABLE `toymembership`.`users` (
   $sql = " CREATE TABLE `memo`(
     `id` INT(6) NOT NULL AUTO_INCREMENT ,
-    `username` VARCHAR(20) UNIQUE NOT NULL COMMENT 'username' , 
+    `users` VARCHAR(20)  NOT NULL COMMENT 'users' , 
     `title` VARCHAR(50) NOT NULL COMMENT 'memo title' ,
     `contents` TEXT NOT NULL COMMENT 'memo contents' ,
     `regtime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'registration time' ,

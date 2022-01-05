@@ -35,9 +35,6 @@ require_once './util/loginchk.php';
         <mgmnu></mgmnu>
         <videos></videos>
         <login></login>
-    </header>
-    <!-- -->
-    <nav>
         <ul>
             <li>navmenu1</li>
             <li>navmenu1</li>
@@ -67,9 +64,22 @@ require_once './util/loginchk.php';
             }
                 ?>
         </ul>
+    </header>
+    <!-- -->
+    <nav>
+        
+        
+    <ul>
+      <li><a href="/memo/list.php">MemoApp</a></li>
+      <li><a href="/board/list.php">Board</a></li>
+      <li>Blog</li>
+      
+    </ul>
+  
     </nav>
     <!-- -->
     <main>
+   
     </main>
     <footer>
     </footer>

@@ -43,5 +43,5 @@
   $conn->close();
 
   // 프로세스 플로우를 인덱스 페이지로 돌려준다.
-  header('Location: user_detailview.php?id='.$id);
+  header('Location: detailview.php?id='.$id);
 ?>
