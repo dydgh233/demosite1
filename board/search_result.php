@@ -1,3 +1,4 @@
+
 <?php
 
 require "../util/dbconfig.php";
@@ -14,7 +15,9 @@ if ($conn->connect_error) {
   if (DBG) ;
 }
 
-
+$conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
+ $search = $_GET['search'];
+$catagory = $_GET['catgo'];
 
 if(isset($_GET['page_no']) && $_GET['page_no']!="") {
   $page_no = $_GET['page_no'];
@@ -59,12 +62,13 @@ $second_last = $total_no_of_pages - 1;
   <br><br><br><br>
   <div class="box3">
   <?php
- $sql = "SELECT * FROM board LIMIT ".$offset.", ".$total_records_per_page." ";
- $resultset = $conn->query($sql);
+ 
+ $sql = ("select * from  board where $catagory like  '%" .$_GET['search']."%'");
+     $result = $conn->query($sql);
 
-  if ($resultset->num_rows > 0) {
+  if ($result->num_rows > 0) {
     echo "<table><tr><th>번호</th><th>작성자</th><th>제목</th><th>등록일</th><th>조회수</th></tr>";
-    while ($row = $resultset->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
       echo "<tr><td>" . $row['id'] . "</td><td>" . $row['users'] . "</td><td><a href='detailview.php?id=" . $row['id'] . "'>" . $row['title'] . "</a><td>" . $row['regtime'] .
       "</td><td>" . $row['hit'] . "</td></tr>";
     }

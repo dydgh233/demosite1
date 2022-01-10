@@ -30,6 +30,7 @@ if ($result->num_rows > 0) {
   $title = $row['title'];
   $contents = $row['contents'];
   $registdate = $row['regtime'];
+  
 } else {
   echo outmsg(INVALID_USER);
 }

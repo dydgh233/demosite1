@@ -15,16 +15,20 @@ $contents = $_POST['contents'];
 $users=$_POST['users'];
 
 
+
 $sql = "SELECT contents FROM board WHERE title = '" . $title . "'";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
   echo outmsg(EXIST_USERNAME);
   $regist_err = TRUE;
 } else {
-  $stmt = $conn->prepare("INSERT INTO board(title,contents,users) VALUES(?, ?,?)");
-  $stmt->bind_param("sss", $title, $contents,$users);
+  
+  $stmt = $conn->prepare("INSERT INTO board(title,contents,users) VALUES(?,?,?)");
+  $stmt->bind_param("sss", $title, $contents, $users);
   $stmt->execute();
+
 }
+
 
 
 

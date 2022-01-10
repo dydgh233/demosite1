@@ -25,6 +25,7 @@ if ($conn->connect_error) {
     if (DBG) echo outmsg(DBCONN_SUCCESS);
 }
 
+
 $stmt = $conn->prepare("UPDATE board SET title = ?,contents = ? WHERE id = ?");
 $stmt->bind_param("ssi", $title, $contents, $id);
 $stmt->execute();

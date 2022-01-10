@@ -27,7 +27,7 @@ if($chk_login) {
   <?php
 
   $id = $_GET['id'];
-
+  $hit = $_GET['id'];
   $sql = "SELECT * FROM board WHERE id = " . $id;
   $resultset = $conn->query($sql);
 
@@ -40,9 +40,14 @@ if($chk_login) {
     echo "</table>";
   }
   echo "내용<div class='box1'>" . $row['contents'] . "</div>";
+
+  $sql = "UPDATE board SET hit=hit+1 WHERE id = " . $id;
+  $conn->query($sql);
+
   ?>
   <br><br><br><br>
   <a href="./list.php">목록보기</a>
+  
 </body>
 
 </html>

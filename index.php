@@ -30,7 +30,7 @@ require_once './util/loginchk.php';
 <body>
     <!-- Logo, Memga menu's, Introduction Video link, and Login Button -->
     <header>
-        <div class="headeritem">logo</div>
+        <div class="headeritem"><img src="./css/man.png"style="max-width: 70%; height: auto;"alt=""></div>
         <div class="headeritem">megamenu1</div>
         <div class="headeritem">megamenu2</div>
         <div class="loginlink">
