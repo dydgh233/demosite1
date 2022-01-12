@@ -9,11 +9,11 @@
 </head>
 <body>
   <h1>내용등록</h1>
-  <form action="registprocess.php" method="POST">
+  <form action="registprocess.php" method="POST"enctype="multipart/form-data">
     <label>작성자: </label><input type="text1" name="users"  required /><br>
     <label>제목: </label><input type="text1" name="title"  required /><br>
     <label>내용: </label><input type="text" name="contents" rows="4" cols="50" required /><br>
-  
+    <input type="file" name="uploadfile"/><br>
     <input type=submit value="저장">
   </form>
 </body>

@@ -1,17 +1,14 @@
-<!-- 
-  파일명 : asysconfig.php
-  최초작업자 : swcodingschool
-  최초작성일자 : 2021-12-28
-  업데이트일자 : 2021-12-28
+<!----------------------------------------------------------------------------- 
+  파일명 : utility.php
+  최초작성자 : swcodingschool
+  최초작성일 : 2022-1-30
+  업데이트일 : 2022-1-30
   
   기능: 
-  시스템 환경 설정 변수
-  시스템내 각 코드들이 메시지 출력을 좀더 단순하게 하도록 메시지 내용을 정의하고
-  메시지출력용 함수를 정의함.
-  이 코드는 adbconfig를 통해 단 한번만 include 되도록 하여야 
-  const의 중복 정의로 인한 오류를 피할 수 있다.
--->
-
+  DBMS 시스템 접속용 기본 정보 선언.
+  실제 애플리케이션 제작에서는 클라이언트 사이트의 환경,
+  즉, DBMS의 종류별 configuration 정보를 참조하여 구성함.
+------------------------------------------------------------------------------>
 <?php
 // 개발단계 디버그 모드 
 const DBG = TRUE;  // 개발 중 DBG 모드일 때 TRUE, 운영 시 FALSE로 토글시킨다
@@ -66,12 +63,16 @@ const SESSION_CREATE = '세션 변수를 생성하였습니다.';
 const SESSION_DELETE = '로그인 관리를 종료하고 세션을 삭제하였습니다.';
 const LOGIN_NEED = '로그인이 필요한 페이지입니다.';
 
+
 // 팝업창 형태의 알림 메시지 출력용 함수 정의
 function outmsg($msg)
 {
   return "<script>alert('" . $msg . "')</script>";
 }
-
+// FILE UPLOAD 처리
+const UPLOAD_ERROR = '파일 업로드 중 문제가 발생하였습니다.';
+const UPLOAD_SUCCESS = '파일을 성공적으로 업로드하였습니다.';
+const FILE_REMOVE = '업로드 파일 폴더에서 파일을 성공적으로 제거하였습니다.';
 // 사용자 ip를 가져오는 함수 생성
 function get_client_ip() {
   $ipaddress = '';

@@ -17,18 +17,7 @@ require "../util/dbconfig.php";
 require_once '../util/loginchk.php';
 if ($chk_login) {
   $username = $_SESSION['username'];
-}
 
-// create connection
-$conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
-
-// check connection : 연결 확인, 오류가 있으면 메시지 출력 후 프로세스 정료
-if ($conn->connect_error) {
-  echo outmsg(DBCONN_FAIL);
-  die("연결실패 :" . $conn->connect_error);
-} else {
-  if (DBG) echo outmsg(DBCONN_SUCCESS);
-}
 
 ?>
 
@@ -144,6 +133,7 @@ if ($conn->connect_error) {
 
   <?php if($page_no < $total_no_of_pages){
   echo "<li><a href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
+}
   } ?>
   </ul>
 </footer>

@@ -15,7 +15,7 @@ require "../util/dbconfig.php";
 require_once '../util/loginchk.php';
 if($chk_login) {
   $username = $_SESSION['username'];
-}
+
 
   // create connection
   $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
@@ -43,4 +43,5 @@ if($chk_login) {
 
   // 프로세스 플로우를 사용자 목록 페이지로 돌려준다.
   header('Location: ./list.php');
+}
 ?>

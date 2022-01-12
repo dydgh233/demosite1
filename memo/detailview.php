@@ -16,7 +16,7 @@ require "../util/dbconfig.php";
 require_once '../util/loginchk.php';
 if($chk_login) {
   $username = $_SESSION['username'];
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +53,7 @@ if($chk_login) {
     
   echo"내용<div class='box1'>".$row['contents']."</div>";
   
- 
+}
   ?>
 
   <br><br><br><br>

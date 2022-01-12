@@ -3,11 +3,12 @@
 // db연결 준비
 require "../util/dbconfig.php";
 
+$upload_path = './uploadfiles/';
 // 로그인한 상태일 때만 이 페이지 내용을 확인할 수 있다.
 require_once '../util/loginchk.php';
 if($chk_login) {
   $username = $_SESSION['username'];
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -25,26 +26,29 @@ if($chk_login) {
   <h1>게시판</h1>
   <br>
   <?php
-
+  
   $id = $_GET['id'];
   $hit = $_GET['id'];
   $sql = "SELECT * FROM board WHERE id = " . $id;
   $resultset = $conn->query($sql);
 
   if ($resultset->num_rows > 0) {
-    echo "<table><tr><th>번호</th><th>작성자</th><th>제목</th><th>Regist Date</th><th>수정</th><th>삭제</th></tr>";
+    echo "<table><tr><th>번호</th><th>작성자</th><th>제목</th><th>Regist Date</th><th>수정</th><th>삭제</th><th>첨부파일</th></tr>";
 
     $row = $resultset->fetch_assoc();
     echo "<tr><td>" . $row['id'] . "</td><td>" . $row['users'] . "</td><td>" . $row['title'] . "</td><td>" . $row['regtime'] .
-      "</td><td><a href='update.php?id=" . $row['id'] . "'>수정</a></td><td><a href='deleteprocess.php?id=" . $row['id'] . "'>삭제</a></td></tr>";
+      "</td><td><a href='update.php?id=" . $row['id'] . "'>수정</a></td><td><a href='deleteprocess.php?id=" . $row['id'] . "'>삭제</a></td>
+      <tb></tb></tr>";
     echo "</table>";
+    
   }
   echo "내용<div class='box1'>" . $row['contents'] . "</div>";
 
   $sql = "UPDATE board SET hit=hit+1 WHERE id = " . $id;
   $conn->query($sql);
-
+}
   ?>
+  <img src='<?= $upload_path.$row['uploadfile']?>.' width='200px' height='auto'>
   <br><br><br><br>
   <a href="./list.php">목록보기</a>
   

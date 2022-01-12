@@ -1,4 +1,3 @@
-
 <?php
 
 require "../util/dbconfig.php";
@@ -6,17 +5,10 @@ require "../util/dbconfig.php";
 require_once '../util/loginchk.php';
 if($chk_login) {
   $username = $_SESSION['username'];
-}
-$conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
-if ($conn->connect_error) {
-  echo outmsg(DBCONN_FAIL);
-  die("연결실패 :" . $conn->connect_error);
-} else {
-  if (DBG) ;
-}
 
-$conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
- $search = $_GET['search'];
+
+
+$search = $_GET['search'];
 $catagory = $_GET['catgo'];
 
 if(isset($_GET['page_no']) && $_GET['page_no']!="") {
@@ -26,7 +18,7 @@ if(isset($_GET['page_no']) && $_GET['page_no']!="") {
 }
 
 // 2. 페이지당 보여줄 리스트 갯수값을 정한다.
-$total_records_per_page = 5;
+$total_records_per_page = 10;
 
 // 3. OFFSET을 계산하고 앞/뒤 페이지 등의 변수를 설정한다.
 $offset = ($page_no - 1) * $total_records_per_page;
@@ -34,16 +26,13 @@ $previous_page = $page_no - 1;
 $next_page = $page_no + 1;
 
 // 4. 전체 페이지 수를 계산한다.
-$sql = "SELECT COUNT(*) AS total_records FROM board";
+$sql = ("SELECT COUNT(*) AS total_records FROM board WHERE ".$catagory." like '%".$search."%' ");
 $resultset = $conn->query($sql);
 $result = mysqli_fetch_array($resultset);
 $total_records = $result['total_records'];
 $total_no_of_pages = ceil($total_records / $total_records_per_page);
-$second_last = $total_no_of_pages - 1;
+//$second_last = $total_no_of_pages - 1;
 
-
-  
- 
 
 ?>
 <!DOCTYPE html>
@@ -62,9 +51,10 @@ $second_last = $total_no_of_pages - 1;
   <br><br><br><br>
   <div class="box3">
   <?php
- 
- $sql = ("select * from  board where $catagory like  '%" .$_GET['search']."%'");
-     $result = $conn->query($sql);
+
+$sql = "SELECT * FROM board WHERE ".$catagory." LIMIT ".$offset.", ".$total_records_per_page." like '%".$search."%' ";
+
+$result = $conn->query($sql);
 
   if ($result->num_rows > 0) {
     echo "<table><tr><th>번호</th><th>작성자</th><th>제목</th><th>등록일</th><th>조회수</th></tr>";
@@ -78,7 +68,7 @@ $second_last = $total_no_of_pages - 1;
   ?>
   </div>
   
-   <ul class="pagination">
+  <ul class="pagination">
   <?php 
   // 한 pagination 에서 몇 페이지를 표현할 것인지를 반영하여 처리하기
   // 2021-01-06 18시경 작업시 $page_per_line 변수를 
@@ -95,16 +85,15 @@ $second_last = $total_no_of_pages - 1;
   echo "page ". $page_no . " of " .$total_no_of_pages."<br><br>";
 
   if($page_no > 1){
-  echo "<li><a href='?page_no=1'>First Page</a></li>";
+  echo "<li><a href='?page_no=1&catgo=$catagory&search=$search'>First Page</a></li>";
   } ?>
       
   <li <?php if($page_no <= 1){ echo "class='disabled'"; } ?>>
   <a <?php if($page_no > 1){
-  echo "href='?page_no=$previous_page'";
+  echo "href='?page_no=$previous_page&catgo=$catagory&search=$search'";
   } ?>>Previous</a>
   </li>
 <?php
-  
 
 
 	// for ($counter = 1; $counter <= $total_no_of_pages; $counter++){
@@ -112,7 +101,7 @@ $second_last = $total_no_of_pages - 1;
 	if ($counter == $page_no) {
 	echo "<li class='active'><a>$counter</a></li>";	
 	        }else{
-        echo "<li><a href='?page_no=$counter'>$counter</a></li>";
+        echo "<li><a href='?page_no=$counter&catgo=$catagory&search=$search'>$counter</a></li>";
                 }
         }
 ?>
@@ -121,17 +110,17 @@ $second_last = $total_no_of_pages - 1;
   echo "class='disabled'";
   } ?>>
   <a <?php if($page_no < $total_no_of_pages) {
-  echo "href='?page_no=$next_page'";
+  echo "href='?page_no=$next_page&catgo=$catagory&search=$search'";
   } ?>>Next</a>
   </li>
 
   <?php if($page_no < $total_no_of_pages){
-  echo "<li><a href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
+  echo "<li><a href='?page_no=$total_no_of_pages&catgo=$catagory&search=$search'>Last &rsaquo;&rsaquo;</a></li>";
   } ?>
   </ul>
   <?php // 여기까지 pagination을 위해 추가 부분
   //=================================================
-  
+}
   ?>
   
   <div class="box1">
@@ -153,5 +142,6 @@ $second_last = $total_no_of_pages - 1;
 
 
 </body>
+
 
 </html>

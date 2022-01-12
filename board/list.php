@@ -5,14 +5,6 @@ require "../util/dbconfig.php";
 require_once '../util/loginchk.php';
 if($chk_login) {
   $username = $_SESSION['username'];
-}
-$conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
-if ($conn->connect_error) {
-  echo outmsg(DBCONN_FAIL);
-  die("연결실패 :" . $conn->connect_error);
-} else {
-  if (DBG) ;
-}
 
 
 
@@ -23,7 +15,7 @@ if(isset($_GET['page_no']) && $_GET['page_no']!="") {
 }
 
 // 2. 페이지당 보여줄 리스트 갯수값을 정한다.
-$total_records_per_page = 5;
+$total_records_per_page =10;
 
 // 3. OFFSET을 계산하고 앞/뒤 페이지 등의 변수를 설정한다.
 $offset = ($page_no - 1) * $total_records_per_page;
@@ -37,7 +29,6 @@ $result = mysqli_fetch_array($resultset);
 $total_records = $result['total_records'];
 $total_no_of_pages = ceil($total_records / $total_records_per_page);
 $second_last = $total_no_of_pages - 1;
-
 
   
  
@@ -100,8 +91,6 @@ $second_last = $total_no_of_pages - 1;
   } ?>>Previous</a>
   </li>
 <?php
-  
-
 
 	// for ($counter = 1; $counter <= $total_no_of_pages; $counter++){
 	for ($counter = $start_page; $counter <= $end_page; $counter++){
@@ -127,7 +116,7 @@ $second_last = $total_no_of_pages - 1;
   </ul>
   <?php // 여기까지 pagination을 위해 추가 부분
   //=================================================
-  
+}
   ?>
   
   <div class="box1">
@@ -145,7 +134,6 @@ $second_last = $total_no_of_pages - 1;
     <input type="text" name="search" size="40" required="required">
     <button class="btn btn-primary">검색</button>
   </form>
-
 
 
 </body>

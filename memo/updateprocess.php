@@ -17,7 +17,7 @@ require "../util/dbconfig.php";
 require_once '../util/loginchk.php';
 if($chk_login) {
   $username = $_SESSION['username'];
-}
+
 
 // 데이터베이스 작업 전, 회원정보 수정화면으로 부터 값을 전달 받고
 $id = $_POST['id'];
@@ -50,4 +50,5 @@ $conn->close();
 
 // 프로세스 플로우를 인덱스 페이지로 돌려준다.
 header('Location:detailview.php?id='.$id);
+}
 ?>

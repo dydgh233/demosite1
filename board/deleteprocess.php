@@ -18,7 +18,17 @@ if ($conn->connect_error) {
 }
 
 $id = $_GET['id'];
+$upload_path = './uploadfiles/';
 
+
+$sql="SELECT * FROM memo WHERE id = ".$id;
+  $resultset = $conn->query($sql);
+  $row = $resultset->fetch_assoc();
+  $existingfile = $row['uploadfile'];
+  if(isset($existingfile) && $existingfile != ""){
+     unlink($upload_path.$existingfile); 
+  }
+ 
 $sql = "DELETE FROM board WHERE id=" . $id;
 
 if ($conn->query($sql) == TRUE) {

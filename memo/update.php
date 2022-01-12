@@ -6,18 +6,9 @@ require "../util/dbconfig.php";
 require_once '../util/loginchk.php';
 if($chk_login) {
   $username = $_SESSION['username'];
-}
 
-    // create connection
-  $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 
-  // check connection : 연결 확인, 오류가 있으면 메시지 출력 후 프로세스 정료
-  if($conn->connect_error) {
-    echo outmsg(DBCONN_FAIL);
-    die("연결실패 :".$conn->connect_error);
-  }else {
-    if(DBG) echo outmsg(DBCONN_SUCCESS);
-  }
+  
 //수정할 레코드의 id값을 받아온다.
   $id=$_GET['id'];
 //해당 id로 데이터를 검색하는 질의문 구성
@@ -34,7 +25,7 @@ if($chk_login) {
       echo outmsg(INVALID_USER);
   }
 
-
+}
 
 ?>
 

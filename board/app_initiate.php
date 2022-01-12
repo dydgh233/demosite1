@@ -7,7 +7,7 @@ require "../util/dbconfig.php";
 require_once '../util/loginchk.php';
 if($chk_login) {
   $username = $_SESSION['username'];
-}
+
 
 $sql = "DROP TABLE IF EXISTS board";
 if ($conn->query($sql) == TRUE) {
@@ -18,6 +18,7 @@ $sql = " CREATE TABLE `board`(
     `id` INT(6) NOT NULL AUTO_INCREMENT ,
     `users` VARCHAR(20)   COMMENT 'users' , 
     `title` VARCHAR(50) NOT NULL COMMENT 'board title' ,
+    `uploadfile` VARCHAR(200) NULL COMMENT 'attached file name',
     `hit` INT(100) COMMENT 'hit' ,
     `contents` TEXT NOT NULL COMMENT 'board contents' ,
     `regtime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'registration time' ,
@@ -33,7 +34,7 @@ if ($conn->query($sql) == TRUE) {
 }
 
 $conn->close();
-
+}
 echo "<a href='../index.php'>Confirm and Return to back</a>";
 ?>
 
