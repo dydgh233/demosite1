@@ -14,6 +14,7 @@ $id = $_POST['id'];
 $title = $_POST['title'];
 $contents = $_POST['contents'];
 $registdate = $_POST['registdate'];
+$uploadfile = $_POST['uploadfile'];
 
 echo outmsg($id);
 
@@ -49,6 +50,7 @@ if ($conn->connect_error) {
 $conn->close();
   }
 
-header('Location:detailview.php?id=' . $id);
+
+echo "<a href='../board/detailview.php?id=".$id."'>수정하였습니다.</a>";
 }
 ?>

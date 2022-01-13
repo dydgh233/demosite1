@@ -21,7 +21,7 @@ $id = $_GET['id'];
 $upload_path = './uploadfiles/';
 
 
-$sql="SELECT * FROM memo WHERE id = ".$id;
+$sql="SELECT * FROM board WHERE id = ".$id;
   $resultset = $conn->query($sql);
   $row = $resultset->fetch_assoc();
   $existingfile = $row['uploadfile'];
@@ -39,5 +39,6 @@ if ($conn->query($sql) == TRUE) {
 
 $conn->close();
 
-header('Location: ./list.php');
+
+echo "<a href='../board/./list.php'>삭제되었습니다.</a>";
 ?>

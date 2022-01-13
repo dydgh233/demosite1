@@ -49,7 +49,7 @@ if ($result->num_rows > 0) {
     <br>
     <input type=submit value="저장">
   </form>
-  <a href="memo_list.php">목록보기</a>
+  <a href="list.php">목록보기</a>
 </body>
 
 </html>
