@@ -51,6 +51,7 @@ $conn->close();
   }
 
 
-echo "<a href='../board/detailview.php?id=".$id."'>수정하였습니다.</a>";
+echo "<a href='../board/detailview.php?id=".$id."&board_id'>수정하였습니다.</a>";
 }
 ?>
+<a href="../board/detailview.php?id=<?=$id?>"></a>

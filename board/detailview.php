@@ -52,7 +52,7 @@ if ($chk_login) {
 
   <h3>댓글</h3>
   <form action="../board_comment/insert_reply.php" method="POST">
-    <input hidden type="text" name="board_id" value="<?=$id?>"/><br>
+    <input  type="hidden" name="board_id" value="<?=$id?>"/><br>
     <label>작성자: </label><input type="text" name="nickname" /><br>
     <label>내용: </label><input type="text" name="comment" rows="4" cols="50" /><br>
 

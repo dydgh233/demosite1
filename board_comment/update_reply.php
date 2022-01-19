@@ -12,7 +12,7 @@ require "../util/dbconfig.php";
     $stmt->execute();
     $stmt->close();
     $conn->close();
-    echo "<a href='../board/detailview.php?id= ".$id." & ".board_id=$id."'>댓글을달았습니다.</a>";
+    echo "<a href='../board/detailview.php?id= " . $id ."&board_id=$id'>댓글을달았습니다.</a>";
     
 
 ?>
