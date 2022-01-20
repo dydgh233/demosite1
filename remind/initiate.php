@@ -77,6 +77,18 @@ for($i=1; $i<=346; $i++){
     $stmt->bind_param("ss", $emp_num, $emp_name);
     $stmt->execute();
 }
+
+//댓글 처리를 위한 테이블
+$sql = "CREATE TABLE comment (
+    `cmt_id` INT(6) NOT NULL AUTO_INCREMENT ,
+    `cmt_writer` VARCHAR(50) NOT NULL ,
+    `cmt_contents` VARCHAR(10) NOT NULL ,
+    `emp_id` INT(6) NOT NULL ,
+    PRIMARY KEY (`cmt_id`),
+    FOREIGN KEY (`emp_id`) REFERENCES employee(`id`) ON DELETE CASCADE
+    )ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci";
+
+$conn->query($sql);
 $stmt->close();
 $conn->close();
 // if($conn != null) {

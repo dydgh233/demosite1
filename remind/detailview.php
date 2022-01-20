@@ -8,6 +8,7 @@
 </head>
 <body>
 <?php
+$login_username = "댓글러";
     $conn = new mysqli("localhost", "remind", "remind", "remind");
 
     $id = $_GET['id'];
@@ -32,5 +33,29 @@
     <a href="update.php?id=<?=$id?>">수정</a>
     <a href="delete_process.php?id=<?=$id?>">삭제</a>
     <a href="list.php">목록으로</a>
+    <hr>
+    <!-- 댓글-->
+
+    <form action="comment_process.php" method="POST">
+    
+    <input type="hidden" name ="writer" value="<?=$login_username?>"><br>    
+    <input type="hidden" name ="emp_id" value="<?=$id?>"><br>    
+    <input type="text" name="contents"><br>
+        <input type="submit" value="저장">
+
+    </form>
+    <hr>
+    <?php
+    //코멘트 테이블에서 emp_id가 본 글(employess)의 id와 같은것만 검색
+    $sql="SELECT * FROM comment WHERE emp_id=".$id;
+    $resultset = $conn->query($sql);
+    while($row = $resultset->fetch_assoc()){
+        echo $row['cmt_writer']."&nbsp;&nbsp;&nbsp;.".$row['cmt_contents']."<br> ";
+    }
+
+    $result->close();
+    $resultset->close();
+    $conn->close();
+    ?>
 </body>
 </html>

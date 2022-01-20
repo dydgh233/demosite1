@@ -1,82 +1,113 @@
-<?php
-// db연결 준비
-require "../util/dbconfig.php";
-
-$upload_path = './uploadfiles/';
-// 로그인한 상태일 때만 이 페이지 내용을 확인할 수 있다.
-require_once '../util/loginchk.php';
-if ($chk_login) {
-  $username = $_SESSION['username'];
-
-?>
-
-  <!DOCTYPE html>
-  <html lang="en">
-
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      .eachcmt {
+        border:1px solid gray;
+      }
+      .cmtcontents {
+        width: 80%;
+      }
+      .cmtupdate{
+        display: none;
+      }
+      .active {
+        background-color : red;
+      }
+    </style>
     <title>Document</title>
-    <link rel="stylesheet" href="../css/style2.css">
-  </head>
 
-  <body>
-    <h1>게시판</h1>
-    <br>
-  <?php
+</head>
+<body>
+<?php
+
+  $login_username = "댓글러";
+  $conn = new mysqli("localhost", "remind", "remind", "remind");
 
   $id = $_GET['id'];
-  $hit = $_GET['id'];
-  $sql = "SELECT * FROM board WHERE id = " . $id;
-  $resultset = $conn->query($sql);
 
-  if ($resultset->num_rows > 0) {
-    echo "<table><tr><th>번호</th><th>작성자</th><th>제목</th><th>Regist Date</th><th>수정</th><th>삭제</th><th>첨부파일</th></tr>";
-
-    $row = $resultset->fetch_assoc();
-    echo "<tr><td>" . $row['id'] . "</td><td>" . $row['users'] . "</td><td>" . $row['title'] . "</td><td>" . $row['regtime'] .
-      "</td><td><a href='update.php?id=" . $row['id'] . "'>수정</a></td><td><a href='deleteprocess.php?id=" . $row['id'] . "'>삭제</a></td>
-      <tb></tb></tr>";
-    echo "</table>";
-  }
-  echo "내용<div class='box1'>" . $row['contents'] . "</div>";
-
-  $sql = "UPDATE board SET hit=hit+1 WHERE id = " . $id;
-  $conn->query($sql);
-}
-  ?>
-  <img src='<?= $upload_path . $row['uploadfile'] ?>.' width='200px' height='auto'>
-  <br><br><br><br>
-  <a href="./list.php">목록보기</a>
-
-  <h3>댓글</h3>
-  <form action="../board_comment/insert_reply.php" method="POST">
-    <input  type="hidden" name="board_id" value="<?=$id?>"/><br>
-    <label>작성자: </label><input type="text" name="nickname" /><br>
-    <label>내용: </label><input type="text" name="comment" rows="4" cols="50" /><br>
-
-    <input type=submit value="저장">
-  </form>
-  <h3>댓글창</h3>
-  <?php
-
-  
-  
-  $sql = "SELECT * FROM board_comment WHERE board_id = " . $id;
+  $sql = "SELECT * FROM employee WHERE id = ".$id;
   $result = $conn->query($sql);
-  if ($result->num_rows > 0) {
-    echo "<table><tr><th>작성자</th><th>내용</th></tr>";
-
-    while ($row = $result->fetch_assoc()){
-    echo "<tr><td>" . $row['nickname'] . "</td><td>" . $row['comment'] . "</td></td>
-    <td><a href='../board_comment/updateform_reply.php?id=" . $row['id'] . "&board_id=$id'>수정</a></td>
-    <td><a href='../board_comment/delete_reply.php?id=" . $row['id'] ."&board_id=$id' >삭제</a></td><br></tr>";
-    echo "</table>";}
-  }
- 
+  $row = $result->fetch_assoc();
 ?>
+<h1>개인정보 상세 보기</h1>
+<table>
+    <tr>
+        <td><?=$row['emp_name']?></td>
+        <td><?=$row['emp_number']?></td>
+        <td><?=$row['emp_phone']?></td>
+        <td><?=$row['emp_hiredate']?></td>
+        <td><?=$row['emp_deptcode']?></td>
+        <td><?=$row['emp_address']?></td>
+        <td><?=$row['emp_email']?></td>
+    </tr>
+</table>   
 
-  </body>
+<a href="update.php?id=<?=$id?>">수정</a>
+<a href="delete_process.php?id=<?=$id?>">삭제</a>
+<a href="list.php">목록으로</a>
+<hr>
+<!--여기부터 댓글 처리 -->
+<!-- 새 댓글 등록 FORM -->
+<form action="comment_process.php" method="POST">
+  <input type="hidden" name="writer" value="<?=$login_username?>"><br>
+  <input type="hidden" name="emp_id" value="<?=$id?>"><br>
+  <input type="text" name="contents"><br>
+  <input type="submit" value="저장">
+</form>
+<hr>
+<?php
+  // 코멘트 테이블에서 emp_id가 본 글(employess)의 id와 같은 것만 검색
+  // 댓글 리스트 처리
+  $sql = "SELECT * FROM comment WHERE emp_id= ".$id;
+  $resultset = $conn->query($sql);
+  while($row = $resultset->fetch_assoc()){
+    $cmt_id = $row['cmt_id'];
+  ?>
+    <div class="eachcmt">
+      <p class="cmtwriter"><?=$row['cmt_writer']?></p>
+      <p class="cmtcontents"><?=$row['cmt_contents']?></p>
+      <a href="cmt_delete_process.php?cmt_id=<?=$cmt_id?>&emp_id=<?=$id?>">삭제</a>
+      <button class="accordion">수정</button> &nbsp;&nbsp;&nbsp;
+      <div class="cmtupdate">
+        <form action="cmt_update_process.php" method="POST">
+          <input type="hidden" name="emp_id" value="<?=$id?>">
+          <input type="hidden" name="cmt_id" value="<?=$cmt_id?>">
+          <label>댓글내용</label>
+          <input type="text" name="cmt_contents" value="<?=$row['cmt_contents']?> ">
+          <input type="submit" value="수정">
+        </form>
+      </div>
+      
+    </div>
 
-  </html>
+    
+  <?php
+  }
+  // resource 반납
+  $result->close();
+  $resultset->close();
+  $conn->close();
+?>
+<script>
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+
+  for(i=0; i < acc.length; i++){
+    acc[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+
+      var target = this.nextElementSibling;
+      if(target.style.display === "block"){
+        target.style.display = "none";
+      }else {
+        target.style.display = "block";
+      }
+    });
+  }
+</script>
+</body>
+</html>

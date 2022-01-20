@@ -15,12 +15,18 @@ require "../util/dbconfig.php";
   <?php
    $id = $_GET['id']; // 댓글
    $board_id = $_GET['board_id'];//원글 
+
+  $sql = "SELECT * FROM board_comment WHERE id=".$id;
+  $result= $conn->query($sql);
+  $row = $result->fetch_assoc();
+
+
   ?>
     <h3>댓글</h3>
     <form action="../board_comment/update_reply.php?id= <?=$id?> <?=$board_id?>" method="POST">
       <input hidden type="text" name="board_id" value="<?=$id?>"/><br>
-      <label>작성자: </label><input type="text" name="nickname" /><br>
-      <label>내용: </label><input type="text" name="comment" rows="4" cols="50" /><br>
+      <label>작성자: </label><input type="text" name="nickname" value="<?=$row['nickname']?>"/><br>
+      <label>내용: </label><input type="text" name="comment" rows="4" cols="50" value="<?=$row['comment']?>" /><br>
   
       <input type=submit value="저장">
     </form>

@@ -20,7 +20,7 @@
 
     ?>
     <h1>인사 정보 수정화면</h1>
-    <form action="insertprocess.php" method="POST">
+    <form action="updateprocess.php" method="POST">
         <input  type="hidden" name="id" value="<?=$row['id']?>"/><br>
         <label>성명<input type="text" name="emp_name" value="<?=$row['emp_name']?>" readonly/></label><br>
         <label>사원번호<input type="text" name="emp_number"value="<?=$row['emp_number']?>" readonly/></label><br>
