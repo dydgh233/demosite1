@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+.t1{
+margin: 0 auto;
+/* top: 10px; */
+width: 50%;
+background: rgba(8, 130, 108, 0.86);
+}
+
+
+h2{
+  /* 중고차 사이트 */
+
+
+
+text-align: center;
+font-weight: bold;
+font-size: 40px;
+line-height: 47px;
+
+color: #FFFCFC;
+}
+
+.t2{
+    float: right;
+    margin: 5px;
+}
+
+.main{
+    
+width: 1000px;
+height: 800px;
+margin: 0 auto;
+
+
+background: #EFEFEF;
+
+}
+
+img{
+    border-radius: 100px;
+    margin: 50px;
+    
+}
+.search{
+    float: left;
+    text-align: center;
+}

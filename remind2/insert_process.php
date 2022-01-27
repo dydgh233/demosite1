@@ -8,15 +8,22 @@ if($conn->connect_error){
     die("데이터베이스연결에 문제가 있습니다." .$conn->connect_error);
 }
 
-$test_name = $_POST['test_name'];
-$test_number = $_POST['test_number'];
-$test_email = $_POST['test_email'];
+$m_email = $_POST['m_email'];
+$m_name = $_POST['m_name'];
+$number = $_POST['number'];
+$phone = $_POST['phone'];
+$adress = $_POST['adress'];
+$m_cardname = $_POST['m_cardname'];
+$m_cardnumber = $_POST['m_cardnumber'];
+$m_id=$_POST['m_id'];
+$m_password=$_POST['m_password'];
 
-echo $test_name."/".$test_number."/".$test_email;
 
-$stmt = $conn->prepare( "INSERT INTO test(test_name, test_number, test_email) VALUES (?,?,?)");
 
-$stmt->bind_param("sss", $test_name, $test_number, $test_email);
+
+$stmt = $conn->prepare( "INSERT INTO member(m_name, adress, number, phone,m_email,m_cardname,m_cardnumber,m_id,m_password) VALUES (?,?,?,?,?,?,?,?,?)");
+
+$stmt->bind_param("sssssssss", $m_name, $adress, $number, $phone,$m_email,$m_cardname,$m_cardnumber,$m_id , $m_password);
 
 $stmt->execute();
 

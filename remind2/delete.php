@@ -9,7 +9,7 @@ $id=$_GET['id'];
 
 $conn=new mysqli($hostname,$username,$password,$dbname);
 
-$sql="DELETE FROM test WHERE id=".$id;
+$sql="DELETE FROM car WHERE id=".$id;
 $conn->query($sql);
 $conn->close();
 

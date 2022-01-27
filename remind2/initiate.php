@@ -40,16 +40,44 @@ $conn->query($sql);
 
 // Create Table
 // 먼저, 존재하는 테이블이 있으면 삭제하고
-$sql = "DROP TABLE IF EXISTS `".$dbname."`.`test`";
+$sql = "DROP TABLE IF EXISTS `".$dbname."`.`car` ";
 $conn->query($sql);
 
 // 새롭게 테이블 생성
-$sql = "CREATE TABLE IF NOT EXISTS `".$dbname."`.`test` (
+$sql = "CREATE TABLE IF NOT EXISTS `".$dbname."`.`car` (
     `id` INT(6) NOT NULL AUTO_INCREMENT ,
-    `test_name` VARCHAR(100) NOT NULL ,
-    `test_number` VARCHAR(100) NOT NULL ,
-    `test_email` VARCHAR(100) NOT NULL ,
+    `c_name` VARCHAR(100) NOT NULL ,
+    `size` VARCHAR(100) NOT NULL ,
+    `energy` VARCHAR(100) NOT NULL ,
+    `price`VARCHAR(100) NOT NULL,
+    `model` VARCHAR(100) NOT NULL,
+    `c_date` VARCHAR(100) NOT NULL ,
+    `uploadfile` VARCHAR(200) NULL COMMENT 'attached file name',
     PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci";
+$conn->query($sql);
+
+$sql = "CREATE TABLE IF NOT EXISTS `".$dbname."`.`member` (
+    `id` INT(6) NOT NULL AUTO_INCREMENT ,
+    `m_name` VARCHAR(100) NOT NULL ,
+    `number` VARCHAR(100) NOT NULL ,
+    `adress` VARCHAR(100) NOT NULL ,
+    `phone`VARCHAR(100) NOT NULL,
+    
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci";
+$conn->query($sql);
+
+$sql = "CREATE TABLE IF NOT EXISTS `".$dbname."`.`tbl_order` (
+    `id` INT(6) NOT NULL AUTO_INCREMENT ,
+    `m_id` INT(6) NOT NULL ,
+    `c_id` INT(6) NOT NULL ,
+    
+    `regtime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'registration time' ,
+    
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`m_id`) REFERENCES member(`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`c_id`) REFERENCES car(`id`) ON DELETE CASCADE
 ) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci";
 $conn->query($sql);
 

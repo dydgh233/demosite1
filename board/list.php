@@ -134,7 +134,56 @@ $second_last = $total_no_of_pages - 1;
     <input type="text" name="search" size="40" required="required">
     <button class="btn btn-primary">검색</button>
   </form>
+  <ul class="pagination">
+    
+  <?php 
+  // 한 pagination 에서 몇 페이지를 표현할 것인지를 반영하여 처리하기
+  // 2021-01-06 18시경 작업시 $page_per_line 변수를 
+  // $page_range_size로 변경함.
+  $page_range_size = 10;  // 한라인에 표시할 페이지 수, 예: 10
+  $start_page = floor($page_no / $page_range_size)*$page_range_size + 1;
+  $end_page = $start_page + ($page_range_size - 1); // 끝 페이지, 예: 20
+  
+  if($end_page > $total_no_of_pages) {  // 계산된 $end_page가 전체 페이지수 보다 크면
+    $end_page = $total_no_of_pages; // $end_page = $total_no_pages가 되어야 한다.
+  }
 
+  // 현재페이지는 전체페이지 중 몇번째 페이지인지 출력...
+  echo "page ". $page_no . " of " .$total_no_of_pages."<br><br>";
+
+  if($page_no > 1){
+  echo "<li><a href='?page_no=1'>First Page</a></li>";
+  } ?>
+      
+  <li <?php if($page_no <= 1){ echo "class='disabled'"; } ?>>
+  <a <?php if($page_no > 1){
+  echo "href='?page_no=$previous_page'";
+  } ?>>Previous</a>
+  </li>
+<?php
+
+	// for ($counter = 1; $counter <= $total_no_of_pages; $counter++){
+	for ($counter = $start_page; $counter <= $end_page; $counter++){
+	if ($counter == $page_no) {
+	echo "<li class='active'><a>$counter</a></li>";	
+	        }else{
+        echo "<li><a href='?page_no=$counter'>$counter</a></li>";
+                }
+        }
+?>
+
+  <li <?php if($page_no >= $total_no_of_pages){
+  echo "class='disabled'";
+  } ?>>
+  <a <?php if($page_no < $total_no_of_pages) {
+  echo "href='?page_no=$next_page'";
+  } ?>>Next</a>
+  </li>
+
+  <?php if($page_no < $total_no_of_pages){
+  echo "<li><a href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
+  } ?>
+  </ul>
 
 </body>
 
