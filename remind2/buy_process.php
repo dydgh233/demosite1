@@ -14,11 +14,13 @@ $cardnumber=$_POST['cardnumber'];
 echo $o_name;
 
 
-$stmt= $conn->prepare("INSERT INTO tbl_order(o_name, o_number, o_adress, o_email, cardname, cardnumber) VALUES (?,?,?,?,?,?)");
-
-$stmt->bind_param("ssssss", $o_name, $o_number, $o_adress, $o_email, $cardname, $cardnumber);
+$stmt= $conn->prepare("INSERT INTO tbl_order(m_id, c_id, o_name, o_number, o_adress, o_email, cardname, cardnumber) VALUES (?, ?, ?,?,?,?,?,?)");
+echo "after assign stmt<br>";
+$stmt->bind_param("ssssssss", "10", "19", $o_name, $o_number, $o_adress, $o_email, $cardname, $cardnumber);
+echo "after bind param<br>";
 
 $stmt->execute();
+echo "after execute<br>";
 $stmt->close();
 $conn->close();
 
