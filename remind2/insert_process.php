@@ -1,29 +1,22 @@
 <?php
-$hostname = "localhost";
-$username = "remind2";
-$password = "remind2";
-$dbname = "remind2";
-$conn = new mysqli($hostname, $username, $password, $dbname);
-if($conn->connect_error){
-    die("데이터베이스연결에 문제가 있습니다." .$conn->connect_error);
-}
+require "../util/dbconfig_remind2.php";
 
 $m_email = $_POST['m_email'];
 $m_name = $_POST['m_name'];
-$number = $_POST['number'];
-$phone = $_POST['phone'];
-$adress = $_POST['adress'];
+$m_number = $_POST['m_number'];
+$m_phone = $_POST['m_phone'];
+$m_adress = $_POST['m_adress'];
 $m_cardname = $_POST['m_cardname'];
 $m_cardnumber = $_POST['m_cardnumber'];
-$m_id=$_POST['m_id'];
-$m_password=$_POST['m_password'];
+$ID=$_POST['ID'];
+$password=$_POST['password'];
 
 
 
 
-$stmt = $conn->prepare( "INSERT INTO member(m_name, adress, number, phone,m_email,m_cardname,m_cardnumber,m_id,m_password) VALUES (?,?,?,?,?,?,?,?,?)");
+$stmt = $conn->prepare( "INSERT INTO member(m_name, m_adress, m_number, m_phone, m_email, m_cardname, m_cardnumber, ID ,password) VALUES (?,?,?,?,?,?,?,?,?)");
 
-$stmt->bind_param("sssssssss", $m_name, $adress, $number, $phone,$m_email,$m_cardname,$m_cardnumber,$m_id , $m_password);
+$stmt->bind_param("sssssssss", $m_name, $m_adress, $m_number, $m_phone, $m_email, $m_cardname, $m_cardnumber, $ID, $password);
 
 $stmt->execute();
 

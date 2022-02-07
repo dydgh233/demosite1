@@ -1,26 +1,21 @@
 <?php
-$hostname="localhost";
-$username="remind2";
-$password="remind2";
-$dbname="remind2";
+require "../util/dbconfig_remind2.php";
 
-$conn = new mysqli($hostname,$username,$password,$dbname);
-
-$id=$_POST['id'];
+$c_id=$_POST['c_id'];
 $c_name=$_POST['c_name'];
-$size=$_POST['size'];
+$c_size=$_POST['c_size'];
 $c_date=$_POST['c_date'];
-$energy=$_POST['energy'];
-$price=$_POST['price'];
-$model=$_POST['model'];
+$c_energy=$_POST['c_energy'];
+$c_price=$_POST['c_price'];
+$c_model=$_POST['c_model'];
 
-$stmt= $conn->prepare("UPDATE car SET c_name=?, size=?, c_date=? , energy =? ,price=? ,model=? WHERE id=?");
-$stmt->bind_param("sssssss", $c_name, $size, $c_date, $energy, $price, $model, $id);
+$stmt= $conn->prepare("UPDATE car SET c_name=?, c_size=?, c_date=? , c_energy =?, c_price=?, c_model=? WHERE c_id=?");
+$stmt->bind_param("sssssss", $c_name, $c_size, $c_date, $c_energy, $c_price, $c_model, $c_id);
 $stmt->execute();
 $stmt->close();
 $conn->close();
 
-header('Location:detailview.php?id='.$id);
+header('Location:detailview.php?c_id='.$c_id);
 
 
 

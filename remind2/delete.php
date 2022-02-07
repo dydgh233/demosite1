@@ -1,20 +1,13 @@
 <?php
 
-$hostname="localhost";
-$username="remind2";
-$password="remind2";
-$dbname="remind2";
+require "../util/dbconfig_remind2.php";
 
-$id=$_GET['id'];
+$c_id=$_GET['c_id'];
 
-$conn=new mysqli($hostname,$username,$password,$dbname);
-
-$sql="DELETE FROM car WHERE id=".$id;
+$sql="DELETE FROM car WHERE c_id=".$c_id;
 $conn->query($sql);
 $conn->close();
 
 header('Location:list.php');
-
-
 
 ?>

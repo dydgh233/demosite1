@@ -1,0 +1,176 @@
+/* -----------------------
+1. css작업의 편의를 위해 root 변수를 선언 활용함 
+2. 미디어 쿼리도 root 변수 조정만으로 컨트롤 가능
+-------------------------- */
+/* 일반 모니터 화면에서의 root 변수 선언  */
+:root {
+    --default_bg_color : rgb(255,255,255);
+    --point_bg_color_1 : rgba(251, 251, 251, 0.8);
+    --point_border_color_1: rgb(196, 196, 196);
+    --point_color_1 : rgb(89, 3, 248);
+    --height_navbar : 4em;  /* 상위 navbar 표시 영역의 높이 */
+    --default_margin_left : 2em; /* navbar item의 기본 좌측 마진 */
+    --width_100: 100%; /* 가로 너비 100% */
+    --width_90: 90%;  /* 가로 너비 90% */
+    --contents_width: 90%; /* 컨텐츠는 가로 화면의 90% */
+    --table_width: var(--width_100);  /* 테이블은 컨텐츠 영역의 100% */ 
+    --btns_width: var(--width_100);   /* btns 도 컨텐츠 영역의 100% */
+    --height_td : 2em;      /* 테이블내 td의 높이 */
+    --height_tbltitle : 4em; /* 테이블 출력전... 테이블 제목표시영역의 높이*/
+    --height_buttons : 4em;  /* 버튼표시 영역의 높이 */
+    --height_bottom: 1em;    /* 화면 가장 하단... 약간의 여유를 갖기 위한 영역의 높이 */
+    --height_contents : calc(100vh - var(--height_navbar) - var(--height_bottom));/* 컨텐츠 영역의 높이 : calc(전체 화면 100vh - navbar영역높이 - bottom 영역높이)로 계산 */
+    --height_table : calc(var(--height_contents) - var(--height_tbltitle) - var(--height_buttons)); /* 테이블 영역의 높이 : calc(컨텐츠영역표시높이 - 테이블제목표시영역높이 - 버튼영역표시높이 ) */
+  }
+  
+  /* 768 픽셀 이하 화면에서의 root 변수  */
+  @media screen and (max-width: 768px) {
+    :root {
+      --default_bg_color : rgb(255,255,255);
+      --point_bg_color_1 : rgba(251, 251, 251, 0.8);
+      --point_border_color_1: rgb(196, 196, 196);
+      --point_color_1 : rgb(89, 3, 248);
+      --height_navbar : 2em;  /* 상위 navbar 표시 영역의 높이 */
+      --default_margin_left : 1.2em; /* navbar item의 기본 좌측 마진 */
+      --width_100: 100%; /* 가로 너비 100% */
+      --width_90: 90%;  /* 가로 너비 90% */
+      --contents_width: 96%; /* 컨텐츠는 가로 화면의 90% */
+      --table_width: var(--width_100);  /* 테이블은 컨텐츠 영역의 100% */ 
+      --table_min_width: 750px;           /* 화면이 작아질 경우 최소 750px 이하로는 줄어들지 않음 */
+      --btns_width: var(--width_100);   /* btns 도 컨텐츠 영역의 100% */
+      --height_td : 1.5em;      /* 테이블내 td의 높이 */
+      --height_tbltitle : 4em; /* 테이블 출력전... 테이블 제목표시영역의 높이*/
+      --height_buttons : 2.4em;  /* 버튼표시 영역의 높이 */
+      --height_bottom: 1.2em;    /* 화면 가장 하단... 약간의 여유를 갖기 위한 영역의 높이 */
+      --height_contents : calc(100vh - var(--height_navbar) - var(--height_bottom));/* 컨텐츠 영역의 높이 : calc(전체 화면 100vh - navbar영역높이 - bottom 영역높이)로 계산 */
+      --height_table : calc(var(--height_contents) - var(--height_tbltitle) - var(--height_buttons)); /* 테이블 영역의 높이 : calc(컨텐츠영역표시높이 - 테이블제목표시영역높이 - 버튼영역표시높이 ) */
+    } 
+  }
+  
+  /* 박스의 크기를 border-box로 설정해야 정확안 레이아웃 작업 가능 */
+  * {
+    box-sizing: border-box; 
+  }
+  
+  /* 디버깅 목적. 실 운영시 0로 세팅 */
+  .dbg {
+    border: 1px dotted red; 
+  }
+  
+  /* 전체 페이지표시 영역 */
+  .wrapper {
+    background-color : var(--default_bg_color);
+    width: var(--width_100);  /* 우선은 100% 차지 */
+    height: auto; /* 컨텐츠 증가시 함께 커질 수 있도록 설정 */
+  }
+  /* 상단, navbar 표시영역 : 높이는 root에서 사용된 변수 사용 */
+  .navbar {
+    height: var(--height_navbar);
+  }
+  
+  /* navbar 표시 영역의 nav 메뉴 아이템용 */
+  .navbar > ul > li {
+    float : left;
+    line-height: var(--height_navbar);
+    margin-left : var(--default_margin_left);
+  }
+  
+  /* 상단 navbar와 하단 bottom 영역을 제외한 실제 컨텐츠 표시 영역 */
+  .contents {
+    background-color : var(--point_bg_color_1);
+    width: var(--contents_width);
+    height: var(--height_contents);
+    margin:0 auto;
+  }
+  
+  /* 테이블(게시판) 타이틀 표시 영역 */
+  .tbltitle {
+    width: var(--table_width);
+    margin: 0 auto;
+    height: var(--height_tbltitle);
+  }
+  
+  /* 테이블(게시판) 제목글 */
+  .ptitle {
+    height: calc(var(--height_tbltitle)/2);
+    padding: 0.5em;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  
+  /* table을 감싸는 표시 영역. 너비와 높이는 각각 테이블의 너비와 높이에 의해 결정됨 */
+  .tblwrapper {
+    background-color : white;
+    width: var(--table_width);
+    height: var(--height_table);
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  
+  /* table은 패어런츠의 100%를 갖도록 하며, 작은 화면에서는 최소 테이블 크기를 따름  */
+  table {
+    width: var(--width_100);
+    min-width: var(--table_min_width);
+    height: auto;
+  }
+  
+  /* 각 행(컬럼)의 높이는 정의된 height_td를 따름 
+     각 행(컬럼)의 아래 보더는 정의된 포인트보더컬러_1을 따름
+  */
+  td {
+    border-bottom : 1px dotted var(--point_border_color_1);
+    height: var(--height_td);
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  /* 테이블의 첫 행, 윗 보더는 포인트컬러를 따름 */
+  tr:first-child > td {
+    border-top: 2px solid var(--point_color_1);
+  }
+  
+  /* 테이블의 세번째 행, 아래 보더는 포인트컬러를 따름 */
+  tr:nth-child(3)> td {
+    border-bottom: 2px solid var(--point_color_1);
+  }
+  
+  /* 테이블의 마지막 행, 컨텐츠 출력용 컬럼
+     높이는 테이블의높이 - 앞3행의높이 식에 의해 계산
+     테이블내 출력물의 모양을 위해 패딩 1.2em씩 부여하고 
+     텍스트 정렬은 좌측, 수직 정렬은 상단 정렬함
+     아래 보더는 동시에 테이블의 아래 선이기도 하여 포인트로 강조함!!
+  */
+  tr:nth-last-child(1) > td {
+    height:calc(var(--height_table) - var(--height_td)*4 - 0.3em); /* 0.3em은 아래보더 강조 목적*/
+    padding: 1.2em;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 3px solid var(--point_color_1);
+  }
+  
+  /* 버튼들 표시 영역. 버튼 수직 가운데 정렬 위해 height와 line-height 동일하게 처리
+     root 변수에서 btns의 width를 table의 1/2 또는 특정 %로 지정 가능함.
+   */
+  .btns{
+    height: var(--height_buttons);
+    line-height: var(--height_buttons);
+    width: var(--btns_width);
+    margin: 0 auto;
+  }
+  
+  /* button 의 배경색 및 보더 컬러는 point_color_1로 설정 
+     각 button내 padding은 buttons 높이의 1/4, 너비는 1/2로 계산 적용되도록 설정
+  */
+  .btns button {
+    background-color : var(--point_color_1);
+    border: 1px solid var(--point_color_1);
+    border-radius: 10px;
+    color:white;
+    font-weight: bold;
+    padding: calc(var(--height_buttons)/4) calc(var(--height_buttons)/2);
+    text-align: center;
+    display: inline-block;
+    font-size: 1em;
+    margin-right: 2em;
+  }
+  

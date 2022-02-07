@@ -10,11 +10,11 @@
     <h1>차량등록</h1>
     <form action="car_insert_process.php" method="POST" enctype="multipart/form-data">
     <label>차종</label><input type="text" name="c_name"/><br>
-    <label>크기</label><input type="text" name="size"/><br>
+    <label>크기</label><input type="text" name="c_size"/><br>
     <label>년도</label><input type="text" name="c_date"/><br>  
-    <label>연료</label><input type="text" name="energy"/><br>  
-    <label>가격</label><input type="text" name="price"/><br>  
-    <label>회사</label><input type="text" name="model"/><br> 
+    <label>연료</label><input type="text" name="c_energy"/><br>  
+    <label>가격</label><input type="text" name="c_price"/><br>  
+    <label>회사</label><input type="text" name="c_model"/><br> 
     <input type="file" name="uploadfile"/><br> 
     
     <input type="submit" value="저장">

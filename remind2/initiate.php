@@ -1,8 +1,10 @@
 <?php
 $hostname = "localhost";
-$username = "root";
-$password = "";
+$username = "remind2";
+$password = "remind2";
 
+
+require_once "../util/utility.php";
 
 $conn = new mysqli($hostname, $username, $password);
 if(!$conn->connect_error) {
@@ -10,11 +12,14 @@ if(!$conn->connect_error) {
 } else {
     echo "<script>alert('DBMS와 연결을 설정할 수 없습니다. \\n호스트명, 계정, 비밀번호를 확인해주세요.')</script>";
 }
+
 $dbname = "remind2";
-$sql="DROP DATABASE IF EXISTS" .$dbname;
+$sql="DROP DATABASE IF EXISTS remind2";
 $conn->query($sql);
-$sql="CREATE DATABASE IF NOT EXISTS".$dbname;
+
+$sql="CREATE DATABASE IF NOT EXISTS remind2";
 $conn->query($sql);
+
 
 
 
@@ -45,39 +50,57 @@ $conn->query($sql);
 
 // 새롭게 테이블 생성
 $sql = "CREATE TABLE IF NOT EXISTS `".$dbname."`.`car` (
-    `id` INT(6) NOT NULL AUTO_INCREMENT ,
+    `c_id` INT(6) NOT NULL AUTO_INCREMENT ,
     `c_name` VARCHAR(100) NOT NULL ,
-    `size` VARCHAR(100) NOT NULL ,
-    `energy` VARCHAR(100) NOT NULL ,
-    `price`VARCHAR(100) NOT NULL,
-    `model` VARCHAR(100) NOT NULL,
+    `c_size` VARCHAR(100) NOT NULL ,
+    `c_energy` VARCHAR(100) NOT NULL ,
+    `c_price`VARCHAR(100) NOT NULL,
+    `c_model` VARCHAR(100) NOT NULL,
     `c_date` VARCHAR(100) NOT NULL ,
     `uploadfile` VARCHAR(200) NULL COMMENT 'attached file name',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`c_id`)
 ) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci";
 $conn->query($sql);
 
+$sql = "DROP TABLE IF EXISTS `".$dbname."`.`member` ";
+$conn->query($sql);
+
 $sql = "CREATE TABLE IF NOT EXISTS `".$dbname."`.`member` (
-    `id` INT(6) NOT NULL AUTO_INCREMENT ,
+    `m_id` INT(6) NOT NULL AUTO_INCREMENT ,
     `m_name` VARCHAR(100) NOT NULL ,
-    `number` VARCHAR(100) NOT NULL ,
-    `adress` VARCHAR(100) NOT NULL ,
-    `phone`VARCHAR(100) NOT NULL,
+    `m_number` VARCHAR(100) NOT NULL ,
+    `m_email` VARCHAR(100) NOT NULL ,
+    `m_adress` VARCHAR(100) NOT NULL ,
+    `m_phone` VARCHAR(100) NOT NULL ,
+    `m_cardname` VARCHAR(100) NOT NULL ,
+    `m_cardnumber` VARCHAR(100) NOT NULL ,
+    `ID` VARCHAR(100) NOT NULL ,
+    `password` VARCHAR(100) NOT NULL ,
+   
     
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`m_id`)
 ) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci";
+$conn->query($sql);
+
+$sql = "DROP TABLE IF EXISTS `".$dbname."`.`tbl_order` ";
 $conn->query($sql);
 
 $sql = "CREATE TABLE IF NOT EXISTS `".$dbname."`.`tbl_order` (
     `id` INT(6) NOT NULL AUTO_INCREMENT ,
     `m_id` INT(6) NOT NULL ,
     `c_id` INT(6) NOT NULL ,
+    `o_name` VARCHAR(100) NOT NULL, 
+    `o_number` VARCHAR(100) NOT NULL, 
+    `o_adress` VARCHAR(100) NOT NULL, 
+    `o_email` VARCHAR(100) NOT NULL, 
+    `o_cardname` VARCHAR(100) NOT NULL, 
+    `o_cardnumber` VARCHAR(100) NOT NULL, 
     
     `regtime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'registration time' ,
     
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`m_id`) REFERENCES member(`id`) ON DELETE CASCADE,
-    FOREIGN KEY (`c_id`) REFERENCES car(`id`) ON DELETE CASCADE
+    FOREIGN KEY (`m_id`) REFERENCES member(`m_id`) ON DELETE CASCADE,
+    FOREIGN KEY (`c_id`) REFERENCES car(`c_id`) ON DELETE CASCADE
 ) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci";
 $conn->query($sql);
 
